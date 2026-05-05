@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hate Detection Icon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .input-container {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #e74c3c;
+        }
+        
+        .instructions ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 8px 0;
+        }
+        
+        .test-phrases {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .test-phrases h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        
+        .test-phrase {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .debug-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 9999;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+        
+        .debug-header {
+            background: #34495e;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1a2332;
+        }
+        
+        .debug-title {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .debug-clear {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+        
+        .debug-clear:hover {
+            background: #c0392b;
+        }
+        
+        .debug-content {
+            max-height: 340px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .debug-log {
+            margin: 4px 0;
+            padding: 4px 8px;
+            border-left: 3px solid #3498db;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 2px;
+        }
+        
+        .debug-log.success {
+            border-left-color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+        }
+        
+        .debug-log.error {
+            border-left-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+        
+        .debug-log.warning {
+            border-left-color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+        }
+        
+        .contenteditable-box {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        
+        .contenteditable-box:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛡️ Hate Detection Icon Test Page</h1>
+    
+    <div class="instructions">
+        <h3>How to Test:</h3>
+        <ul>
+            <li>Load the extension in Chrome/Edge (developer mode)</li>
+            <li><strong>Click into any input field</strong> to focus it</li>
+            <li>Look for the <strong>red "HS" icon</strong> in the bottom-right corner</li>
+            <li><strong>Click the icon</strong> to see hate score and suggestions</li>
+            <li>The score badge updates automatically as you type</li>
+            <li><strong>Switch to another input</strong> - icon moves with focus!</li>
+            <li><strong>Click outside</strong> - icon disappears (clean UI)</li>
+        </ul>
+        <p style="margin-top: 10px; padding: 10px; background: #e8f4f8; border-radius: 4px; font-size: 13px;">
+            <strong>✨ Note:</strong> Only the <em>focused</em> input shows an icon. This keeps the UI clean and prevents overlapping!
+        </p>
+    </div>
+    
+    <div class="input-container">
+        <label for="text-input">Text Input Field:</label>
+        <input type="text" id="text-input" placeholder="Type something here...">
+    </div>
+    
+    <div class="input-container">
+        <label for="textarea-input">Textarea Field:</label>
+        <textarea id="textarea-input" placeholder="Type a longer message here..."></textarea>
+    </div>
+    
+    <div class="input-container">
+        <label>ContentEditable Div:</label>
+        <div class="contenteditable-box" contenteditable="true" data-placeholder="Type in this editable div..."></div>
+    </div>
+    
+    <div class="test-phrases">
+        <h3>Test Phrases (copy & paste):</h3>
+        <div class="test-phrase">✅ Low Score: "Have a great day! Let's work together."</div>
+        <div class="test-phrase">⚠️ Medium Score: "I don't like your ideas at all."</div>
+        <div class="test-phrase">🚫 High Score: "You're stupid and worthless."</div>
+    </div>
+    
+    <!-- Debug Panel -->
+    <div class="debug-panel">
+        <div class="debug-header">
+            <span class="debug-title">🐛 Extension Debug Log</span>
+            <button class="debug-clear" onclick="clearDebugLog()">Clear</button>
+        </div>
+        <div style="padding: 8px 15px; background: #34495e; border-bottom: 1px solid #1a2332; font-size: 10px;">
+            <strong>Focused Input:</strong> <span id="focusedInput" style="color: #3498db;">None</span>
+        </div>
+        <div class="debug-content" id="debugContent">
+            <div class="debug-log">Waiting for extension to load...</div>
+        </div>
+    </div>
+    
+    <script>
+        // Debug logging
+        let debugLogs = [];
+        const debugContent = document.getElementById('debugContent');
+        
+        function addDebugLog(message, type = 'info') {
+            const log = document.createElement('div');
+            log.className = `debug-log ${type}`;
+            log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            debugContent.appendChild(log);
+            debugContent.scrollTop = debugContent.scrollHeight;
+            
+            // Keep only last 50 logs
+            while (debugContent.children.length > 50) {
+                debugContent.removeChild(debugContent.firstChild);
+            }
+        }
+        
+        function clearDebugLog() {
+            debugContent.innerHTML = '<div class="debug-log">Log cleared...</div>';
+        }
+        
+        // Check for extension
+        addDebugLog('Test page loaded', 'success');
+        addDebugLog('Checking for extension...', 'info');
+        
+        // Check if extension content script is loaded
+        setTimeout(() => {
+            if (typeof getEditableElements === 'function') {
+                addDebugLog('✅ Extension detected!', 'success');
+                addDebugLog('getEditableElements function found', 'success');
+            } else {
+                addDebugLog('❌ Extension NOT detected', 'error');
+                addDebugLog('Make sure extension is loaded and enabled', 'warning');
+            }
+            
+            if (typeof apiClient !== 'undefined') {
+                addDebugLog('✅ API Client loaded', 'success');
+            } else {
+                addDebugLog('❌ API Client NOT loaded', 'error');
+            }
+        }, 1000);
+        
+        // Monitor focus events on inputs
+        const inputs = document.querySelectorAll('input, textarea, [contenteditable]');
+        addDebugLog(`Found ${inputs.length} input fields on page`, 'info');
+        
+        const focusedInputDisplay = document.getElementById('focusedInput');
+        
+        inputs.forEach((input, index) => {
+            input.addEventListener('focus', () => {
+                addDebugLog(`📍 Input ${index + 1} focused`, 'success');
+                focusedInputDisplay.textContent = `Input ${index + 1} (${input.tagName.toLowerCase()})`;
+                focusedInputDisplay.style.color = '#2ecc71';
+            });
+            
+            input.addEventListener('blur', () => {
+                addDebugLog(`📍 Input ${index + 1} blurred`, 'info');
+                focusedInputDisplay.textContent = 'None';
+                focusedInputDisplay.style.color = '#95a5a6';
+            });
+            
+            input.addEventListener('input', () => {
+                addDebugLog(`✏️ Input ${index + 1} text changed`, 'info');
+            });
+        });
+        
+        // Intercept console logs from extension
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        console.log = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('[HATE-DETECT]')) {
+                if (message.includes('✅') || message.includes('🎉')) {
+                    addDebugLog(message, 'success');
+                } else if (message.includes('❌') || message.includes('Error')) {
+                    addDebugLog(message, 'error');
+                } else if (message.includes('⚠️') || message.includes('Warning')) {
+                    addDebugLog(message, 'warning');
+                } else {
+                    addDebugLog(message, 'info');
+                }
+            }
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('[HATE-DETECT]')) {
+                addDebugLog(message, 'error');
+            }
+            originalError.apply(console, args);
+        };
+        
+        console.warn = function(...args) {
+            const message = args.join(' ');
+            if (message.includes('[HATE-DETECT]')) {
+                addDebugLog(message, 'warning');
+            }
+            originalWarn.apply(console, args);
+        };
+        
+        // Check for icons every 2 seconds
+        let lastIconCount = 0;
+        setInterval(() => {
+            const icons = document.querySelectorAll('.hate-detect-icon');
+            if (icons.length !== lastIconCount) {
+                if (icons.length === 1) {
+                    addDebugLog(`✅ Icon is visible (clean UI - only focused input)`, 'success');
+                } else if (icons.length === 0) {
+                    addDebugLog(`ℹ️ No icon visible (no input focused)`, 'info');
+                } else {
+                    addDebugLog(`⚠️ ${icons.length} icons visible (should be 0 or 1)`, 'warning');
+                }
+                lastIconCount = icons.length;
+            }
+        }, 2000);
+        
+        // Add placeholder behavior for contenteditable
+        const editableDiv = document.querySelector('.contenteditable-box');
+        editableDiv.addEventListener('focus', function() {
+            if (this.textContent.trim() === '') {
+                this.textContent = '';
+            }
+        });
+        
+        editableDiv.addEventListener('blur', function() {
+            if (this.textContent.trim() === '') {
+                this.setAttribute('data-placeholder', 'Type in this editable div...');
+            }
+        });
+        
+        console.log('Test page loaded. Extension debug panel active!');
+    </script>
+</body>
+</html>

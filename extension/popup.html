@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hate Speech Prevention - Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <h1>Chromium Maiden</h1>
+      <p class="version">v1.0.0</p>
+      <button class="shop-link-btn" id="shopBtn">shop</button>
+    </header>
+
+    <div class="popup-content">
+      <!-- Feature 1 Section -->
+      <section class="feature-section">
+        <div class="section-header">
+          <h2>📤 Pre-Send Detection</h2>
+          <label class="toggle-switch">
+            <input type="checkbox" id="feature1Toggle" class="feature-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <p class="section-description">
+          Detects hate speech in your messages before they're sent and suggests respectful rewrites.
+        </p>
+        <div class="feature-status">
+          <span class="status-badge" id="feature1Status">Active</span>
+        </div>
+      </section>
+
+      <!-- Feature 2 Section -->
+      <section class="feature-section">
+        <div class="section-header">
+          <h2>📥 Incoming Filtering</h2>
+          <label class="toggle-switch">
+            <input type="checkbox" id="feature2Toggle" class="feature-toggle">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <p class="section-description">
+          Protects you by filtering or hiding hateful messages from others.
+        </p>
+        <div class="feature-status">
+          <span class="status-badge" id="feature2Status">Active</span>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section class="settings-section">
+        <h3>⚙️ Settings</h3>
+
+        <!-- Filter Action -->
+        <div class="setting-item">
+          <label for="filterAction">Filter Action:</label>
+          <select id="filterAction" class="setting-select">
+            <option value="blur" selected>Blur content</option>
+            <option value="hide">Hide content</option>
+            <option value="warn">Show warning only</option>
+          </select>
+          <p class="setting-help">Choose how hateful content is handled.</p>
+        </div>
+
+        <!-- Platforms -->
+        <div class="setting-item">
+          <label>Enabled Platforms:</label>
+          <div class="platform-checkboxes">
+            <label class="checkbox-label">
+              <input type="checkbox" id="platformFacebook" class="platform-check" checked>
+              <span>Facebook</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="platformInstagram" class="platform-check" checked>
+              <span>Instagram</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="platformTwitter" class="platform-check" checked>
+              <span>X/Twitter</span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info-section">
+        <h3>ℹ️ How It Works</h3>
+        <ul class="info-list">
+          <li><strong>Detection:</strong> AI analyzes text for hateful language</li>
+          <li><strong>Rewriting:</strong> Get respectful alternatives suggested</li>
+          <li><strong>Filtering:</strong> Hide harmful incoming messages</li>
+          <li><strong>Privacy:</strong> No data stored or logged</li>
+        </ul>
+      </section>
+
+      <!-- Debug Section -->
+      <section class="debug-section">
+        <h3>🔧 Debug</h3>
+        <button id="clearCacheBtn" class="btn btn-secondary">Clear Cache</button>
+        <button id="resetSettingsBtn" class="btn btn-secondary">Reset Settings</button>
+        <div id="debugInfo" class="debug-info"></div>
+      </section>
+    </div>
+
+    
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

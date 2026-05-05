@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theme Shop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shop-container">
+    <header class="shop-header">
+      <button class="back-btn" id="backBtn">←</button>
+      <h1>shop</h1>
+      <div class="coins-display">
+        <span class="coin-icon">🪙</span>
+        <span id="coinsAmount">1000</span>
+      </div>
+    </header>
+
+    <div class="shop-content">
+      <div class="shop-grid">
+        <!-- Mascot 1 -->
+        <div class="shop-item" data-theme="blondie" data-price="250">
+          <div class="item-image">
+            <img src="mascots/for_sale/blondie maid.png" class="mascot-preview" alt="Blondie Maid">
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">Blondie Maid</h3>
+            <p class="item-description">classic look tbh</p>
+            <div class="item-footer">
+              <span class="item-price">
+                <span class="coin-icon">🪙</span>
+                250
+              </span>
+              <button class="buy-btn" data-theme="blondie">Get it</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mascot 2 -->
+        <div class="shop-item" data-theme="gigia" data-price="300">
+          <div class="item-image">
+            <img src="mascots/for_sale/gigia.png" class="mascot-preview" alt="Gigia">
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">Gigia</h3>
+            <p class="item-description">kinda sus but cool</p>
+            <div class="item-footer">
+              <span class="item-price">
+                <span class="coin-icon">🪙</span>
+                300
+              </span>
+              <button class="buy-btn" data-theme="gigia">Get it</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mascot 3 -->
+        <div class="shop-item" data-theme="potato" data-price="500">
+          <div class="item-image">
+            <img src="mascots/for_sale/potato.png" class="mascot-preview" alt="Potato">
+            <span class="premium-badge-top">rare</span>
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">Potato</h3>
+            <p class="item-description">literally a potato lmao</p>
+            <div class="item-footer">
+              <span class="item-price">
+                <span class="coin-icon">🪙</span>
+                500
+              </span>
+              <button class="buy-btn premium" data-theme="potato">Get it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Owned Mascots Section -->
+      <div class="owned-section">
+        <h2>your mascots</h2>
+        <div class="owned-grid" id="ownedThemes">
+          <div class="owned-item active">
+            <div class="owned-preview">
+              <img src="mascots/default_maid/maid_ok.jpeg" class="owned-mascot-img" alt="Default Maid">
+            </div>
+            <p>Default Maid</p>
+            <span class="active-badge">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="shop.js"></script>
+</body>
+</html>

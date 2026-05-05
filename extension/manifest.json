@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "Chromium Maid",
+  "version": "1.0.0",
+  "description": "Detect and filter hate speech on social media platforms",
+  "permissions": [
+    "storage",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://www.facebook.com/*",
+    "https://www.instagram.com/*",
+    "https://www.x.com/*",
+    "https://twitter.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://www.instagram.com/*",
+        "https://www.x.com/*",
+        "https://twitter.com/*",
+        "http://*/*",
+        "https://*/*",
+        "file://*/*"
+      ],
+      "js": [
+        "utils/apiClient.js",
+        "utils/domDetection.js",
+        "contentScript.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "mascots/default_maid/*.jpeg",
+        "mascots/for_sale/*.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
