@@ -1,1 +1,46 @@
-./venv/
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+venv/
+env/
+.python-version
+
+# Local runtime data
+*.sqlite
+*.sqlite3
+*.db
+*.faiss
+*.index
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Tests and tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Extension packages and temporary output
+dist/
+build/
+*.zip
+*.crx
+*.pem
+*.log
+tmp/
+temp/
