@@ -1,0 +1,285 @@
+:root {
+  --cm-ink: oklch(24% 0.018 305);
+  --cm-muted: oklch(49% 0.025 305);
+  --cm-paper: oklch(97% 0.009 88);
+  --cm-panel: oklch(99% 0.006 88);
+  --cm-border: oklch(84% 0.017 305);
+  --cm-accent: oklch(48% 0.095 322);
+  --cm-accent-soft: oklch(93% 0.028 322);
+  --cm-warning: oklch(70% 0.12 70);
+  --cm-shadow: 0 12px 34px oklch(24% 0.018 305 / 0.18);
+}
+
+.cm-pending {
+  filter: blur(3px) !important;
+  opacity: 0.58 !important;
+  transition: filter 160ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cm-filtered.cm-action-blur:not(.cm-revealed) {
+  filter: blur(10px) !important;
+  opacity: 0.48 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.cm-filtered.cm-action-hide:not(.cm-revealed) {
+  opacity: 0.06 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+.cm-filtered.cm-action-warn:not(.cm-revealed) {
+  outline: 1px solid var(--cm-warning) !important;
+  outline-offset: 3px !important;
+  background-color: oklch(95% 0.025 70) !important;
+}
+
+.cm-filtered.cm-revealed {
+  filter: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+
+.cm-shield-control {
+  all: initial;
+  position: fixed !important;
+  inset: 0 auto auto 0 !important;
+  z-index: 2147483646 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  box-sizing: border-box !important;
+  min-height: 34px !important;
+  padding: 5px 8px 5px 6px !important;
+  border: 1px solid var(--cm-border) !important;
+  border-radius: 8px !important;
+  background: var(--cm-panel) !important;
+  color: var(--cm-ink) !important;
+  box-shadow: 0 7px 20px oklch(24% 0.018 305 / 0.18) !important;
+  font: 600 12px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transform-origin: top left !important;
+}
+
+.cm-shield-control:hover {
+  border-color: var(--cm-accent) !important;
+}
+
+.cm-shield-control:focus-visible {
+  outline: 2px solid var(--cm-accent) !important;
+  outline-offset: 2px !important;
+}
+
+.cm-shield-control[hidden] {
+  display: none !important;
+}
+
+.cm-shield-marker {
+  display: grid !important;
+  place-items: center !important;
+  width: 23px !important;
+  height: 23px !important;
+  border-radius: 6px !important;
+  background: var(--cm-accent) !important;
+  color: var(--cm-paper) !important;
+  font-size: 9px !important;
+  letter-spacing: 0.04em !important;
+}
+
+.cm-shield-label {
+  color: var(--cm-ink) !important;
+}
+
+.cm-shield-action {
+  color: var(--cm-accent) !important;
+}
+
+.cm-composer-prompt {
+  all: initial;
+  position: fixed !important;
+  inset: 0 auto auto 0 !important;
+  z-index: 2147483647 !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  width: min(350px, calc(100vw - 24px)) !important;
+  padding: 14px !important;
+  border: 1px solid var(--cm-border) !important;
+  border-radius: 12px !important;
+  background: var(--cm-panel) !important;
+  color: var(--cm-ink) !important;
+  box-shadow: var(--cm-shadow) !important;
+  font: 400 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+}
+
+.cm-composer-prompt *,
+.cm-composer-prompt *::before,
+.cm-composer-prompt *::after {
+  box-sizing: border-box !important;
+}
+
+.cm-composer-header {
+  display: grid !important;
+  grid-template-columns: 38px 1fr 28px !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 0 12px !important;
+}
+
+.cm-composer-avatar {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 9px !important;
+  object-fit: cover !important;
+  filter: saturate(0.72) contrast(0.95) !important;
+}
+
+.cm-composer-header strong {
+  display: block !important;
+  margin-top: 2px !important;
+  color: var(--cm-ink) !important;
+  font: 650 14px/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+}
+
+.cm-composer-eyebrow,
+.cm-field-label {
+  display: block !important;
+  color: var(--cm-muted) !important;
+  font: 650 10px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.cm-icon-button {
+  all: unset !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 7px !important;
+  color: var(--cm-muted) !important;
+  font: 400 20px/1 sans-serif !important;
+  cursor: pointer !important;
+}
+
+.cm-icon-button:hover {
+  background: var(--cm-accent-soft) !important;
+  color: var(--cm-ink) !important;
+}
+
+.cm-composer-reason {
+  margin: 0 0 13px !important;
+  padding: 10px !important;
+  border: 1px solid oklch(86% 0.04 70) !important;
+  border-radius: 8px !important;
+  background: oklch(96% 0.022 70) !important;
+  color: var(--cm-ink) !important;
+  font: 400 12px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+}
+
+.cm-suggestions {
+  display: grid !important;
+  gap: 7px !important;
+}
+
+.cm-suggestion {
+  all: unset !important;
+  display: block !important;
+  padding: 9px 10px !important;
+  border: 1px solid var(--cm-border) !important;
+  border-radius: 8px !important;
+  background: var(--cm-paper) !important;
+  color: var(--cm-ink) !important;
+  font: 500 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  cursor: pointer !important;
+}
+
+.cm-suggestion:hover {
+  border-color: var(--cm-accent) !important;
+  background: var(--cm-accent-soft) !important;
+}
+
+.cm-suggestion:focus-visible,
+.cm-button:focus-visible,
+.cm-icon-button:focus-visible {
+  outline: 2px solid var(--cm-accent) !important;
+  outline-offset: 2px !important;
+}
+
+.cm-suggestion-empty {
+  margin: 0 !important;
+  color: var(--cm-muted) !important;
+  font: 400 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+}
+
+.cm-composer-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+}
+
+.cm-button {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 32px !important;
+  padding: 0 11px !important;
+  border-radius: 8px !important;
+  font: 650 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  cursor: pointer !important;
+}
+
+.cm-button-secondary {
+  border: 1px solid var(--cm-accent) !important;
+  background: var(--cm-accent) !important;
+  color: var(--cm-paper) !important;
+}
+
+.cm-button-secondary:hover {
+  background: oklch(42% 0.095 322) !important;
+}
+
+.cm-button-quiet {
+  border: 1px solid var(--cm-border) !important;
+  color: var(--cm-muted) !important;
+}
+
+.cm-button-quiet:hover {
+  color: var(--cm-ink) !important;
+  border-color: var(--cm-muted) !important;
+}
+
+.cm-toast {
+  all: initial;
+  position: fixed !important;
+  right: 18px !important;
+  bottom: 18px !important;
+  z-index: 2147483647 !important;
+  max-width: min(320px, calc(100vw - 36px)) !important;
+  padding: 10px 12px !important;
+  border: 1px solid var(--cm-border) !important;
+  border-radius: 9px !important;
+  background: var(--cm-ink) !important;
+  color: var(--cm-paper) !important;
+  box-shadow: var(--cm-shadow) !important;
+  font: 550 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  opacity: 0 !important;
+  transform: translateY(8px) !important;
+  transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1), transform 180ms cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.cm-toast-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cm-pending,
+  .cm-toast {
+    transition: none !important;
+  }
+}

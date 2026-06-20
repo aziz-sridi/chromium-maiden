@@ -1,17 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "Chromium Maid",
-  "version": "1.0.0",
-  "description": "Detect and filter hate speech on social media platforms",
+  "name": "Chromium Maiden",
+  "version": "1.1.0",
+  "minimum_chrome_version": "102",
+  "description": "A calm browser companion that filters harmful speech before you read or send it.",
   "permissions": [
-    "storage",
-    "webRequest"
+    "storage"
   ],
   "host_permissions": [
     "https://www.facebook.com/*",
+    "https://www.messenger.com/*",
     "https://www.instagram.com/*",
     "https://www.x.com/*",
-    "https://twitter.com/*"
+    "https://twitter.com/*",
+    "http://127.0.0.1:8000/*",
+    "http://localhost:8000/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -20,17 +23,18 @@
     {
       "matches": [
         "https://www.facebook.com/*",
+        "https://www.messenger.com/*",
         "https://www.instagram.com/*",
         "https://www.x.com/*",
-        "https://twitter.com/*",
-        "http://*/*",
-        "https://*/*",
-        "file://*/*"
+        "https://twitter.com/*"
       ],
       "js": [
         "utils/apiClient.js",
         "utils/domDetection.js",
         "contentScript.js"
+      ],
+      "css": [
+        "content.css"
       ],
       "run_at": "document_idle",
       "all_frames": false
@@ -42,10 +46,15 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "mascots/default_maid/*.jpeg",
-        "mascots/for_sale/*.png"
+        "mascots/default_maid/*.jpeg"
       ],
-      "matches": ["<all_urls>"]
+      "matches": [
+        "https://www.facebook.com/*",
+        "https://www.messenger.com/*",
+        "https://www.instagram.com/*",
+        "https://www.x.com/*",
+        "https://twitter.com/*"
+      ]
     }
   ]
 }
