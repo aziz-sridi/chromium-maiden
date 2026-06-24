@@ -1,112 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hate Speech Prevention - Settings</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="popup-container">
-    <header class="popup-header">
-      <h1>Chromium Maiden</h1>
-      <p class="version">v1.0.0</p>
-      <button class="shop-link-btn" id="shopBtn">shop</button>
-    </header>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chromium Maiden</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="popup-shell">
+      <header class="brand-header">
+        <img
+          class="brand-avatar"
+          src="mascots/default_maid/maid_ok.jpeg"
+          alt=""
+          width="52"
+          height="52"
+        >
+        <div class="brand-copy">
+          <p class="eyebrow">Chromium Maiden</p>
+          <h1>Keep the feed civil.<br>Keep your point intact.</h1>
+        </div>
+      </header>
 
-    <div class="popup-content">
-      <!-- Feature 1 Section -->
-      <section class="feature-section">
-        <div class="section-header">
-          <h2>📤 Pre-Send Detection</h2>
-          <label class="toggle-switch">
-            <input type="checkbox" id="feature1Toggle" class="feature-toggle">
-            <span class="toggle-slider"></span>
+      <div class="protection-state" id="protectionState" role="status">
+        <span class="state-dot" aria-hidden="true"></span>
+        <span id="protectionStateText">Protection is on</span>
+        <span class="state-note">Maiden on watch</span>
+      </div>
+
+      <section class="session-strip" aria-label="Session activity">
+        <div class="session-metric">
+          <strong id="incomingShielded">0</strong>
+          <span>shielded</span>
+        </div>
+        <div class="session-metric">
+          <strong id="outgoingPaused">0</strong>
+          <span>send pauses</span>
+        </div>
+        <div class="session-metric">
+          <strong id="cacheHits">0</strong>
+          <span>cache hits</span>
+        </div>
+      </section>
+
+      <section class="control-group" aria-labelledby="protectionHeading">
+        <div class="section-heading">
+          <h2 id="protectionHeading">Protection</h2>
+          <span>Runs only on supported social sites</span>
+        </div>
+
+        <label class="control-row" for="outgoingToggle">
+          <span class="control-copy">
+            <strong>Before you send</strong>
+            <span>Pause hostile messages and offer calmer wording.</span>
+          </span>
+          <span class="switch">
+            <input id="outgoingToggle" type="checkbox">
+            <span class="switch-track" aria-hidden="true"></span>
+          </span>
+        </label>
+
+        <label class="control-row" for="incomingToggle">
+          <span class="control-copy">
+            <strong>Incoming posts</strong>
+            <span>Shield harmful content while the feed is checked.</span>
+          </span>
+          <span class="switch">
+            <input id="incomingToggle" type="checkbox">
+            <span class="switch-track" aria-hidden="true"></span>
+          </span>
+        </label>
+      </section>
+
+      <details class="preferences">
+        <summary>
+          <span>
+            <strong>Preferences</strong>
+            <small>Sensitivity, treatment, and sites</small>
+          </span>
+          <span class="summary-chevron" aria-hidden="true">⌄</span>
+        </summary>
+
+        <div class="preferences-body">
+          <label class="field-row" for="sensitivitySelect">
+            <span>
+              <strong>Sensitivity</strong>
+              <small>How readily the maiden intervenes</small>
+            </span>
+            <select id="sensitivitySelect">
+              <option value="low">Relaxed</option>
+              <option value="medium">Balanced</option>
+              <option value="high">Strict</option>
+            </select>
           </label>
-        </div>
-        <p class="section-description">
-          Detects hate speech in your messages before they're sent and suggests respectful rewrites.
-        </p>
-        <div class="feature-status">
-          <span class="status-badge" id="feature1Status">Active</span>
-        </div>
-      </section>
 
-      <!-- Feature 2 Section -->
-      <section class="feature-section">
-        <div class="section-header">
-          <h2>📥 Incoming Filtering</h2>
-          <label class="toggle-switch">
-            <input type="checkbox" id="feature2Toggle" class="feature-toggle">
-            <span class="toggle-slider"></span>
+          <label class="field-row" for="filterActionSelect">
+            <span>
+              <strong>Incoming treatment</strong>
+              <small>What happens to flagged content</small>
+            </span>
+            <select id="filterActionSelect">
+              <option value="blur">Blur</option>
+              <option value="hide">Hide</option>
+              <option value="warn">Warn only</option>
+            </select>
           </label>
+
+          <fieldset class="platform-fieldset">
+            <legend>Active sites</legend>
+            <div class="platform-options">
+              <label>
+                <input type="checkbox" data-platform="facebook">
+                <span>Facebook</span>
+              </label>
+              <label>
+                <input type="checkbox" data-platform="instagram">
+                <span>Instagram</span>
+              </label>
+              <label>
+                <input type="checkbox" data-platform="twitter">
+                <span>X</span>
+              </label>
+            </div>
+          </fieldset>
         </div>
-        <p class="section-description">
-          Protects you by filtering or hiding hateful messages from others.
-        </p>
-        <div class="feature-status">
-          <span class="status-badge" id="feature2Status">Active</span>
-        </div>
+      </details>
+
+      <section class="service-row" aria-label="Moderation service">
+        <span class="service-indicator" id="serviceIndicator" aria-hidden="true"></span>
+        <span class="service-copy">
+          <strong id="serviceTitle">Checking local model</strong>
+          <small id="serviceDetail">Local fallback is always available.</small>
+        </span>
+        <button class="text-button" id="retryBackend" type="button">Retry</button>
       </section>
 
-      <!-- Settings Section -->
-      <section class="settings-section">
-        <h3>⚙️ Settings</h3>
-
-        <!-- Filter Action -->
-        <div class="setting-item">
-          <label for="filterAction">Filter Action:</label>
-          <select id="filterAction" class="setting-select">
-            <option value="blur" selected>Blur content</option>
-            <option value="hide">Hide content</option>
-            <option value="warn">Show warning only</option>
-          </select>
-          <p class="setting-help">Choose how hateful content is handled.</p>
+      <footer class="popup-footer">
+        <div class="footer-actions">
+          <button class="quiet-button" id="clearCacheButton" type="button">Clear memory</button>
+          <button class="quiet-button" id="resetButton" type="button">Reset</button>
         </div>
+        <span class="version">v1.1.0</span>
+      </footer>
 
-        <!-- Platforms -->
-        <div class="setting-item">
-          <label>Enabled Platforms:</label>
-          <div class="platform-checkboxes">
-            <label class="checkbox-label">
-              <input type="checkbox" id="platformFacebook" class="platform-check" checked>
-              <span>Facebook</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="platformInstagram" class="platform-check" checked>
-              <span>Instagram</span>
-            </label>
-            <label class="checkbox-label">
-              <input type="checkbox" id="platformTwitter" class="platform-check" checked>
-              <span>X/Twitter</span>
-            </label>
-          </div>
-        </div>
-      </section>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
 
-      <!-- Info Section -->
-      <section class="info-section">
-        <h3>ℹ️ How It Works</h3>
-        <ul class="info-list">
-          <li><strong>Detection:</strong> AI analyzes text for hateful language</li>
-          <li><strong>Rewriting:</strong> Get respectful alternatives suggested</li>
-          <li><strong>Filtering:</strong> Hide harmful incoming messages</li>
-          <li><strong>Privacy:</strong> No data stored or logged</li>
-        </ul>
-      </section>
-
-      <!-- Debug Section -->
-      <section class="debug-section">
-        <h3>🔧 Debug</h3>
-        <button id="clearCacheBtn" class="btn btn-secondary">Clear Cache</button>
-        <button id="resetSettingsBtn" class="btn btn-secondary">Reset Settings</button>
-        <div id="debugInfo" class="debug-info"></div>
-      </section>
-    </div>
-
-    
-  </div>
-
-  <script src="popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>
