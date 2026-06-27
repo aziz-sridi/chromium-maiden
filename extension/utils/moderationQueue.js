@@ -45,7 +45,7 @@
       {
         category: 'discrimination',
         score: 0.84,
-        pattern: /\b(?:all|those)\s+(?:people|immigrants?)\s+(?:are|should|deserve)\b|\b(?:exterminate|genocide)\b/i
+        pattern: /\b(?:all|those)\s+(?:people|immigrants?)\s+(?:are\s+(?:vermin|trash|subhuman)|should\s+(?:leave|die|be\s+removed)|deserve\s+(?:nothing|to\s+die))\b|\b(?:exterminate|genocide)\b/i
       },
       {
         category: 'insult',

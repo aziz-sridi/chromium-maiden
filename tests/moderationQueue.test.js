@@ -80,4 +80,5 @@ test('expires cached results after the TTL', async () => {
 test('local fallback catches an explicit threat and leaves ordinary text alone', () => {
   assert.equal(localModerate('I will kill you').category, 'violent_hate');
   assert.equal(localModerate('I disagree with this proposal').is_hate, false);
+  assert.equal(localModerate('All people are equal').is_hate, false);
 });
