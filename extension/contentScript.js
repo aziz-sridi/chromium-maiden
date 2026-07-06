@@ -88,7 +88,13 @@
     });
     mergeSettings(patch);
 
-    if (!incomingEnabled()) clearIncomingInterventions();
+    const incomingPolicyChanged = [
+      'feature2Enabled',
+      'filterAction',
+      'sensitivityLevel',
+      'platformsEnabled'
+    ].some((key) => Object.prototype.hasOwnProperty.call(patch, key));
+    if (!incomingEnabled() || incomingPolicyChanged) clearIncomingInterventions();
     scheduleScan();
   }
 
@@ -271,13 +277,14 @@
       element.removeAttribute('aria-busy');
       removeShield(element);
     });
+    incomingStates.clear();
   }
 
   function cleanupDetachedRecords() {
-    shieldRecords.forEach((record, element) => {
+    incomingStates.forEach((_state, element) => {
       if (!element.isConnected) {
-        record.control.remove();
-        shieldRecords.delete(element);
+        intersectionObserver.unobserve(element);
+        removeShield(element);
         incomingStates.delete(element);
       }
     });

@@ -177,7 +177,9 @@
       try {
         const result = await this.worker(task.text, task.mode);
         const cacheValue = { ...result, cached: false };
-        this.setCached(task.key, cacheValue);
+        const resultTtlMs = Number(cacheValue.cacheTtlMs) || this.ttlMs;
+        delete cacheValue.cacheTtlMs;
+        this.setCached(task.key, cacheValue, resultTtlMs);
         this.stats.completed += 1;
         task.resolve(cacheValue);
       } catch (error) {
@@ -189,11 +191,11 @@
       }
     }
 
-    setCached(key, value) {
+    setCached(key, value, ttlMs = this.ttlMs) {
       if (this.cache.has(key)) this.cache.delete(key);
       this.cache.set(key, {
         value,
-        expiresAt: this.now() + this.ttlMs
+        expiresAt: this.now() + ttlMs
       });
 
       while (this.cache.size > this.maxCacheSize) {

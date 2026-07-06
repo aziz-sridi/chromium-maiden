@@ -77,6 +77,24 @@ test('expires cached results after the TTL', async () => {
   assert.equal(calls, 2);
 });
 
+test('allows a worker to shorten the cache lifetime for fallback results', async () => {
+  let clock = 1000;
+  let calls = 0;
+  const queue = new ModerationQueue({
+    ttlMs: 5000,
+    now: () => clock,
+    worker: async () => {
+      calls += 1;
+      return { is_hate: false, hate_score: 0, cacheTtlMs: 25 };
+    }
+  });
+
+  await queue.enqueue('fallback result');
+  clock += 26;
+  await queue.enqueue('fallback result');
+  assert.equal(calls, 2);
+});
+
 test('local fallback catches an explicit threat and leaves ordinary text alone', () => {
   assert.equal(localModerate('I will kill you').category, 'violent_hate');
   assert.equal(localModerate('I disagree with this proposal').is_hate, false);

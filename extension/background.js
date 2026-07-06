@@ -103,7 +103,7 @@ async function moderateText(text, mode) {
   }
 
   if (Date.now() < backendUnavailableUntil) {
-    return localResult;
+    return { ...localResult, cacheTtlMs: BACKEND_RETRY_MS };
   }
 
   const controller = new AbortController();
@@ -129,7 +129,7 @@ async function moderateText(text, mode) {
   } catch (_error) {
     backendState = 'fallback';
     backendUnavailableUntil = Date.now() + BACKEND_RETRY_MS;
-    return localResult;
+    return { ...localResult, cacheTtlMs: BACKEND_RETRY_MS };
   } finally {
     clearTimeout(timeout);
   }
