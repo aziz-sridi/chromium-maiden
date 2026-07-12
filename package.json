@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node --test tests/moderationQueue.test.js",
     "test:python": "python -m unittest discover -s tests -p \"test_*.py\"",
-    "check:js": "node --check extension/background.js && node --check extension/contentScript.js && node --check extension/popup.js && node --check extension/utils/apiClient.js && node --check extension/utils/domDetection.js && node --check extension/utils/moderationQueue.js",
+    "check:js": "node --check extension/background.js && node --check extension/contentScript.js && node --check extension/manual-test.js && node --check extension/popup.js && node --check extension/utils/apiClient.js && node --check extension/utils/domDetection.js && node --check extension/utils/moderationQueue.js",
     "check": "npm run check:js && npm test && npm run test:python"
   }
 }

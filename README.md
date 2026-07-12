@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="extension/mascots/default_maid/maid_ok.jpeg" width="112" alt="Chromium Maiden mascot">
+  <img src="extension/mascots/default_maid/maid_ok.png" width="112" alt="Chromium Maiden mascot">
   <h1>Chromium Maiden</h1>
   <p><strong>A calmer feed and a second thought before send.</strong></p>
   <p>A Chrome extension that filters harmful incoming and outgoing speech, assisted by a protective companion with just enough dry humor.</p>
@@ -88,7 +88,44 @@ These sites change their DOM frequently. Selector maintenance is expected, and c
 
 The extension works immediately with its conservative local fallback. Run the backend for contextual classification and generated rewrites.
 
-### 2. Run the local backend
+## Test it yourself
+
+### Built-in test lab
+
+1. After changing the code, open `chrome://extensions` and press the reload button on Chromium Maiden.
+2. Open the extension popup.
+3. Confirm **Before you send** and **Incoming posts** are enabled.
+4. Select **Test lab** at the bottom of the popup.
+
+The lab exercises the real content script and background worker without posting or transmitting its sample messages.
+
+For incoming protection:
+
+1. The ordinary sample should briefly show the pending treatment and then become clear.
+2. The explicit threat sample should receive a **Shielded a threat** control.
+3. Select **Reveal**, then **Shield again**, and confirm both states work.
+4. Add the harmful sample again. Open the popup afterward and confirm that **cache hits** increased.
+
+For outgoing protection:
+
+1. Leave `I will kill you` in the test composer and select **Test send**.
+2. Confirm the anchored Chromium Maiden panel appears with a category, score, and rewrite suggestions.
+3. Choose a rewrite and verify that it replaces the draft.
+4. Replace the draft with `I disagree, but I want to understand your point.`
+5. Select **Test send** again. The result box should confirm that the message passed locally.
+6. Try **Send anyway** on the hostile sample and confirm the test result changes. Nothing leaves the test page.
+
+### Test on a supported site
+
+1. Reload the social-media tab after reloading the extension. Existing tabs do not automatically receive a newly loaded content script.
+2. Type a test draft but do not publish it. A harmful draft should be paused when you use the site's send control.
+3. Use **Keep editing**, a rewrite, and **Send anyway** to verify each path.
+4. Scroll through comments and confirm only visible or near-visible content enters the pending state.
+5. Change incoming treatment in the popup and confirm existing interventions refresh to Blur, Hide, or Warn.
+
+To inspect failures, open `chrome://extensions`, find Chromium Maiden, and select the **service worker** link. Page-level content-script errors appear in the supported site's normal DevTools console.
+
+## Run the local backend
 
 Requirements:
 
@@ -225,6 +262,7 @@ chromium-maiden/
 │   ├── background.js          Moderation service worker
 │   ├── contentScript.js       Incoming and outgoing page behavior
 │   ├── content.css            Isolated page interventions
+│   ├── manual-test.*          Safe local lab for intervention testing
 │   └── popup.*                Toolbar controls and session status
 ├── tests/                     JavaScript and Python regression tests
 ├── DESIGN.md                  Visual system and component rules

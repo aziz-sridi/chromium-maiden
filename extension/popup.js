@@ -56,6 +56,7 @@ function collectElements() {
   elements.serviceTitle = document.getElementById('serviceTitle');
   elements.serviceDetail = document.getElementById('serviceDetail');
   elements.retryBackend = document.getElementById('retryBackend');
+  elements.testLabButton = document.getElementById('testLabButton');
   elements.clearCacheButton = document.getElementById('clearCacheButton');
   elements.resetButton = document.getElementById('resetButton');
   elements.toast = document.getElementById('toast');
@@ -85,8 +86,14 @@ function attachListeners() {
     });
   });
   elements.clearCacheButton.addEventListener('click', clearCache);
+  elements.testLabButton.addEventListener('click', openTestLab);
   elements.resetButton.addEventListener('click', resetSettings);
   elements.retryBackend.addEventListener('click', retryBackend);
+}
+
+async function openTestLab() {
+  await chrome.tabs.create({ url: chrome.runtime.getURL('manual-test.html') });
+  window.close();
 }
 
 function mergeSettings(next = {}) {

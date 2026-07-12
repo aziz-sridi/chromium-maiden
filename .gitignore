@@ -41,6 +41,7 @@ build/
 *.zip
 *.crx
 *.pem
+*.psd
 *.log
 tmp/
 temp/

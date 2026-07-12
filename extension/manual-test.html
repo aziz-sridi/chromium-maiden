@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-cm-test>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chromium Maiden Test Lab</title>
+    <link rel="stylesheet" href="content.css">
+    <link rel="stylesheet" href="manual-test.css">
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <img src="mascots/default_maid/maid_ok.png" alt="" width="72" height="72">
+        <div>
+          <p class="eyebrow">Chromium Maiden</p>
+          <h1>Test lab</h1>
+          <p>Exercise the real extension without posting anything online.</p>
+        </div>
+        <div class="backend-state" id="backendState" role="status">Checking model</div>
+      </header>
+
+      <section class="lab-section" aria-labelledby="incomingHeading">
+        <div class="section-heading">
+          <div>
+            <p class="step-number">01</p>
+            <h2 id="incomingHeading">Incoming protection</h2>
+            <p>The harmful sample should be shielded. The ordinary sample should become clear.</p>
+          </div>
+          <div class="section-actions">
+            <button type="button" id="addSafeSample">Add safe sample</button>
+            <button type="button" id="addHarmfulSample">Add harmful sample</button>
+          </div>
+        </div>
+
+        <div class="sample-feed" id="sampleFeed" aria-label="Incoming test feed"></div>
+      </section>
+
+      <section class="lab-section" aria-labelledby="outgoingHeading">
+        <div class="section-heading">
+          <div>
+            <p class="step-number">02</p>
+            <h2 id="outgoingHeading">Outgoing protection</h2>
+            <p>Try the supplied hostile draft. The send action stays inside this test page.</p>
+          </div>
+        </div>
+
+        <form class="composer" id="testComposer">
+          <label for="testMessage">Test draft</label>
+          <textarea id="testMessage" aria-label="Test message" rows="4">I will kill you</textarea>
+          <div class="composer-actions">
+            <span>Nothing here is posted or transmitted externally.</span>
+            <button type="submit">Test send</button>
+          </div>
+        </form>
+
+        <div class="send-result" id="sendResult" role="status">
+          No test message has passed the send checkpoint yet.
+        </div>
+      </section>
+
+      <section class="checklist" aria-labelledby="checklistHeading">
+        <p class="step-number">03</p>
+        <h2 id="checklistHeading">What to verify</h2>
+        <ol>
+          <li>Harmful incoming text receives a Chromium Maiden shield.</li>
+          <li>Reveal and Shield again both work.</li>
+          <li>The outgoing panel shows a category, score, and rewrite choices.</li>
+          <li>Choosing a rewrite replaces the draft.</li>
+          <li>Sending an ordinary sentence reaches the result box above.</li>
+          <li>Repeating the same sample increases cache hits in the popup.</li>
+        </ol>
+      </section>
+    </main>
+
+    <script src="utils/apiClient.js"></script>
+    <script src="utils/domDetection.js"></script>
+    <script src="contentScript.js"></script>
+    <script src="manual-test.js"></script>
+  </body>
+</html>

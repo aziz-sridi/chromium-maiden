@@ -433,7 +433,7 @@
 
     const avatar = document.createElement('img');
     avatar.className = 'cm-composer-avatar';
-    avatar.src = chrome.runtime.getURL('mascots/default_maid/maid_meh.jpeg');
+    avatar.src = chrome.runtime.getURL('mascots/default_maid/maid_meh.png');
     avatar.alt = '';
 
     const headingGroup = document.createElement('div');

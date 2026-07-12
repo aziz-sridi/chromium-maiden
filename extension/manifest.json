@@ -46,7 +46,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "mascots/default_maid/*.jpeg"
+        "mascots/default_maid/*.png"
       ],
       "matches": [
         "https://www.facebook.com/*",

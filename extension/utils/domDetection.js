@@ -21,6 +21,9 @@
   ].join(',');
 
   const INCOMING_SELECTORS = {
+    test: [
+      '[data-cm-test-message]'
+    ],
     facebook: [
       '[data-ad-comet-preview="message"]',
       '[aria-label*="Comment by" i]',
@@ -39,6 +42,7 @@
   };
 
   function platformName(hostname = window.location.hostname) {
+    if (document.documentElement.hasAttribute('data-cm-test')) return 'test';
     if (hostname.includes('facebook.com') || hostname.includes('messenger.com')) return 'facebook';
     if (hostname.includes('instagram.com')) return 'instagram';
     if (hostname.includes('twitter.com') || hostname.includes('x.com')) return 'twitter';
