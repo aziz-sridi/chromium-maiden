@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Extension popup screenshot placeholder</title>
+  <desc id="desc">A placeholder for a screenshot of the Chromium Maiden extension popup.</desc>
+  <rect width="1200" height="760" fill="#eee7ed"/>
+  <rect x="390" y="55" width="420" height="650" rx="24" fill="#fffdf9" stroke="#cfc3cd" stroke-width="3"/>
+  <circle cx="460" cy="140" r="38" fill="#e7d6e3"/>
+  <rect x="520" y="112" width="210" height="18" rx="9" fill="#403641"/>
+  <rect x="520" y="146" width="160" height="12" rx="6" fill="#9a8e98"/>
+  <rect x="430" y="215" width="340" height="64" rx="12" fill="#edf4ef" stroke="#b9d0c0"/>
+  <g fill="#f5f0f4" stroke="#ddd3db"><rect x="430" y="310" width="340" height="78" rx="10"/><rect x="430" y="404" width="340" height="78" rx="10"/><rect x="430" y="498" width="340" height="78" rx="10"/></g>
+  <text x="600" y="640" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="700" fill="#503e4e">Replace with popup.png</text>
+</svg>

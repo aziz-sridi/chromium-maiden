@@ -1,80 +1,98 @@
 <div align="center">
   <img src="extension/mascots/default_maid/maid_ok.png" width="112" alt="Chromium Maiden mascot">
   <h1>Chromium Maiden</h1>
-  <p><strong>A calmer feed and a second thought before send.</strong></p>
-  <p>A Chrome extension that filters harmful incoming and outgoing speech, assisted by a protective companion with just enough dry humor.</p>
+  <p><strong>A calmer feed. A second thought before send.</strong></p>
+  <p>Local-first protection for harmful messages on Facebook, Messenger, Instagram, and X.</p>
+  <p>
+    <img alt="Chrome Extension" src="https://img.shields.io/badge/Chrome-Extension-6b3f63">
+    <img alt="Manifest V3" src="https://img.shields.io/badge/Manifest-V3-6b3f63">
+    <img alt="Local AI" src="https://img.shields.io/badge/AI-Local--first-2f7657">
+    <img alt="Prototype" src="https://img.shields.io/badge/status-prototype-b98232">
+  </p>
+  <p>
+    <a href="#see-it-in-action">Demo</a> ·
+    <a href="#what-it-does">Features</a> ·
+    <a href="#quick-start">Quick start</a> ·
+    <a href="#how-it-works">How it works</a> ·
+    <a href="#development">Development</a>
+  </p>
 </div>
 
 > [!NOTE]
-> Chromium Maiden is an active prototype, not an infallible moderation system. It can miss harmful language or flag harmless context. Reveal and override controls remain available for that reason.
+> Chromium Maiden is an active prototype, not an infallible moderation system. It can miss harmful language or flag harmless context, so reveal and override controls always remain available.
 
-## Why this exists
+## See it in action
 
-Online moderation usually happens after harm has already landed. Chromium Maiden moves that checkpoint into the browser:
+Chromium Maiden protects both sides of a conversation: it slows down harmful messages before they leave and shields harmful content before it lands.
 
-- Incoming posts, comments, and messages are checked as they enter the viewport.
-- Harmful content can be blurred, hidden, or marked with a warning.
-- Outgoing messages are checked before the site receives the send action.
-- Flagged drafts can be rewritten without losing the point the user intended to make.
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <a href="docs/media/sending-a-message.mp4">
+        <img src="docs/media/outgoing-demo-placeholder.svg" alt="Demo of Chromium Maiden checking an outgoing message" width="100%">
+      </a>
+      <br>
+      <strong>Before you send</strong><br>
+      <sub>Checks a draft, explains the intervention, and offers calmer rewrites.</sub>
+    </td>
+    <td width="50%" align="center">
+      <a href="docs/media/receiving-a-message.mp4">
+        <img src="docs/media/incoming-demo-placeholder.svg" alt="Demo of Chromium Maiden shielding an incoming message" width="100%">
+      </a>
+      <br>
+      <strong>Before you see it</strong><br>
+      <sub>Shields harmful incoming content while preserving reveal and correction controls.</sub>
+    </td>
+  </tr>
+</table>
 
-The maiden is present, but quiet. She protects the workflow instead of turning it into a game.
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="docs/media/popup-placeholder.svg" alt="Chromium Maiden extension controls" width="100%">
+      <br>
+      <strong>Protection at a glance</strong><br>
+      <sub>Session status, protection modes, sensitivity, and active sites.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="docs/media/configuration-placeholder.svg" alt="Chromium Maiden personal boundaries configuration" width="100%">
+      <br>
+      <strong>Your boundaries, your rules</strong><br>
+      <sub>Block, context-check, or allow topics—and describe the nuance in your own words.</sub>
+    </td>
+  </tr>
+</table>
 
-## What changed in v1.1
+> The media above uses intentional placeholders. Drop in the two videos and replace the two screenshots using the checklist in [`docs/media`](docs/media/README.md).
 
-- Replaced repeated full-page scans with visibility-driven discovery.
-- Added an immediate pending shield so harmful content does not remain readable while classification is running.
-- Added a three-worker request queue, in-flight request deduplication, and a 400-entry LRU-style cache with a 30-minute TTL.
-- Persisted the extension cache for the browser session so repeated feed items are not reclassified after a service-worker restart.
-- Added a backend circuit breaker. If the local model is unavailable, requests use the fast fallback immediately for 30 seconds instead of repeatedly waiting for a timeout.
-- Replaced the oversized script and generated interface with smaller modules and a restrained, gradient-free popup.
-- Removed the tracked virtual environment, generated model state, duplicate prototype, obsolete shop, test mockups, and redundant generated documentation.
+## What it does
 
-## How it works
+| | Capability | Experience |
+| --- | --- | --- |
+| 🛡️ | **Shields incoming content** | Checks posts, comments, and messages near the viewport, then blurs, hides, or warns. |
+| ✋ | **Pauses harmful sends** | Intercepts click and keyboard sends without losing the draft or the user's intent. |
+| ✍️ | **Suggests better wording** | Offers up to three calmer rewrites with a clear explanation and an explicit override. |
+| 🎛️ | **Adapts to personal boundaries** | Lets each user block, context-check, or allow specific topics and add free-form preferences. |
+| 🧠 | **Learns local corrections** | Remembers reported false negatives locally through SQLite and FAISS-backed example memory. |
+| 🔒 | **Keeps analysis local** | Uses a conservative in-extension fallback and an optional local Ollama backend—no hosted moderation provider. |
 
-### Incoming content
+## The experience
 
-1. Platform-specific selectors discover likely messages and comments.
-2. `IntersectionObserver` prioritizes content near the viewport.
-3. A subtle pending blur prevents unchecked text from flashing in full clarity.
-4. The background worker checks the session cache and joins any identical in-flight request.
-5. Up to three uncached requests run concurrently.
-6. A confirmed match receives the configured treatment and a separate reveal control.
-7. Before applying a result, the content script verifies that the DOM element still contains the same text. Stale results are discarded.
+### Outgoing messages
 
-### Outgoing content
+1. Write normally on a supported social site.
+2. After an 850 ms typing pause, Chromium Maiden quietly checks the draft.
+3. If the message is harmful, an anchored panel explains why and offers rewrites, **Keep editing**, or **Send anyway**.
 
-Drafts are classified after a short typing pause, which means most send actions already have a cached answer. Harmful drafts open a compact panel beside the composer with the category, score, reason, rewrite choices, and an explicit override.
+If send is pressed while a check is still running, one send intent is held. A safe result from the deeper local model completes it; quick fallback results always require another user action.
 
-If a keyboard send happens before classification finishes, Chromium Maiden pauses it. A safe result asks for one more send action because browsers do not allow extensions to recreate a trusted keyboard event.
+### Incoming messages
 
-### Moderation layers
+1. Content close to the viewport enters a subtle pending shield.
+2. Safe content is revealed; harmful content receives the configured treatment.
+3. A compact warning menu can reveal the original, provide a calmer reading, or record a correction.
 
-```text
-Social page
-    │
-    ▼
-Content script: discovery, pending shield, stale-result guard
-    │
-    ▼
-Background worker: queue, deduplication, session cache
-    │
-    ├── Local rule fallback for clear threats and harassment
-    │
-    └── FastAPI backend on 127.0.0.1:8000
-            ├── SQLite result cache
-            ├── Ollama moderation and rewrite model
-            └── FAISS memory of user-reported examples
-```
-
-The local fallback is intentionally conservative and primarily English-language. The Ollama backend provides deeper, contextual classification and rewrite suggestions.
-
-## Supported sites
-
-- Facebook and Messenger
-- Instagram
-- X and legacy Twitter URLs
-
-These sites change their DOM frequently. Selector maintenance is expected, and coverage can differ across feeds, comments, and direct messages.
+When the model misses harmful text, select it and use **Chromium Maiden: shield similar text next time** from the browser context menu.
 
 ## Quick start
 
@@ -82,97 +100,92 @@ These sites change their DOM frequently. Selector maintenance is expected, and c
 
 1. Open `chrome://extensions`.
 2. Enable **Developer mode**.
-3. Choose **Load unpacked**.
-4. Select the [`extension`](extension) directory.
-5. Open a supported site and use the toolbar popup to choose your protection settings.
+3. Select **Load unpacked**.
+4. Choose the [`extension`](extension) directory.
+5. Reload any already-open Facebook, Instagram, or X tab.
 
-The extension works immediately with its conservative local fallback. Run the backend for contextual classification and generated rewrites.
+The extension works immediately with its conservative local fallback. Start the optional backend for contextual classification and generated rewrites.
 
-## Test it yourself
+### 2. Run the local backend
 
-### Built-in test lab
-
-1. After changing the code, open `chrome://extensions` and press the reload button on Chromium Maiden.
-2. Open the extension popup.
-3. Confirm **Before you send** and **Incoming posts** are enabled.
-4. Select **Test lab** at the bottom of the popup.
-
-The lab exercises the real content script and background worker without posting or transmitting its sample messages.
-
-For incoming protection:
-
-1. The ordinary sample should briefly show the pending treatment and then become clear.
-2. The explicit threat sample should receive a **Shielded a threat** control.
-3. Select **Reveal**, then **Shield again**, and confirm both states work.
-4. Add the harmful sample again. Open the popup afterward and confirm that **cache hits** increased.
-
-For outgoing protection:
-
-1. Leave `I will kill you` in the test composer and select **Test send**.
-2. Confirm the anchored Chromium Maiden panel appears with a category, score, and rewrite suggestions.
-3. Choose a rewrite and verify that it replaces the draft.
-4. Replace the draft with `I disagree, but I want to understand your point.`
-5. Select **Test send** again. The result box should confirm that the message passed locally.
-6. Try **Send anyway** on the hostile sample and confirm the test result changes. Nothing leaves the test page.
-
-### Test on a supported site
-
-1. Reload the social-media tab after reloading the extension. Existing tabs do not automatically receive a newly loaded content script.
-2. Type a test draft but do not publish it. A harmful draft should be paused when you use the site's send control.
-3. Use **Keep editing**, a rewrite, and **Send anyway** to verify each path.
-4. Scroll through comments and confirm only visible or near-visible content enters the pending state.
-5. Change incoming treatment in the popup and confirm existing interventions refresh to Blur, Hide, or Warn.
-
-To inspect failures, open `chrome://extensions`, find Chromium Maiden, and select the **service worker** link. Page-level content-script errors appear in the supported site's normal DevTools console.
-
-## Run the local backend
-
-Requirements:
-
-- Python 3.10 or newer
-- [Ollama](https://ollama.com/) running locally
-- Node.js 18 or newer only if you want to run the JavaScript checks
-
-Create the environment and install Python dependencies:
+Requirements: Python 3.10+, [Ollama](https://ollama.com/), and Node.js 18+ for JavaScript checks.
 
 ```bash
 python -m venv .venv
 ```
 
-Windows PowerShell:
+<details>
+<summary><strong>Install dependencies on Windows PowerShell</strong></summary>
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
 pip install -r backendv2\requirements.txt
 ```
 
-macOS or Linux:
+</details>
+
+<details>
+<summary><strong>Install dependencies on macOS or Linux</strong></summary>
 
 ```bash
 source .venv/bin/activate
 pip install -r backendv2/requirements.txt
 ```
 
-Download the local models:
+</details>
+
+Download the models and start the API:
 
 ```bash
 ollama pull qwen2.5:3b
 ollama pull nomic-embed-text
-```
-
-Start the API on the port expected by the extension:
-
-```bash
 uvicorn backendv2.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Verify it:
+Verify the service at `http://127.0.0.1:8000/health`. The extension popup will report **Local model connected**.
 
-```bash
-curl http://127.0.0.1:8000/health
+<details>
+<summary><strong>RTX 50-series note for Windows</strong></summary>
+
+Start Ollama with the bundled CUDA 13 runner before starting the API:
+
+```powershell
+.\scripts\start-ollama-gpu.ps1
 ```
 
-The popup reports **Local model connected** when the health check succeeds.
+Add `-DebugLogs` when diagnosing automatic discovery. After the first request, `ollama ps` should report `100% GPU` in its processor column.
+
+</details>
+
+### 3. Personalize your boundaries
+
+Open the extension popup, select **My boundaries**, choose **Block**, **Context**, or **Allow** for each topic, and add any nuance in your own words. New moderation checks immediately use the saved profile.
+
+## How it works
+
+```mermaid
+flowchart LR
+    A[Social page] --> B[Content script]
+    B -->|discover + shield| C[Background worker]
+    C --> D{Session cache}
+    D -->|hit| C
+    D -->|miss| E[Fast local rules]
+    D -->|miss| F[FastAPI on localhost]
+    F --> G[Ollama moderation + rewrites]
+    F --> H[SQLite result cache]
+    F --> I[FAISS correction memory]
+    C -->|classification| B
+```
+
+The content script prioritizes visible content and rejects stale results when a reused DOM node has changed. The background worker deduplicates identical in-flight requests, runs up to three uncached checks concurrently, and keeps a 400-entry session cache with a 30-minute TTL. If the backend becomes unavailable, a circuit breaker switches to the fast local fallback and retries automatically.
+
+### Supported sites
+
+- Facebook and Messenger
+- Instagram
+- X and legacy Twitter URLs
+
+Social sites change their DOM frequently, so selector maintenance is expected and coverage can differ across feeds, comments, and direct messages.
 
 ## Settings
 
@@ -180,74 +193,34 @@ The popup reports **Local model connected** when the health check succeeds.
 | --- | --- |
 | Before you send | Checks drafts and pauses harmful send actions. |
 | Incoming posts | Checks visible incoming content. |
-| Sensitivity | Relaxed uses a higher intervention threshold; Strict uses a lower one. |
+| Sensitivity | Relaxed raises the intervention threshold; Strict lowers it. |
 | Incoming treatment | Blur, hide, or warn without obscuring the content. |
 | Active sites | Enables protection independently for Facebook, Instagram, and X. |
+| My boundaries | Blocks, context-checks, or allows six topics plus two free-form preference descriptions. |
 
-Settings sync through `chrome.storage.sync`. Moderation results stay in `chrome.storage.session` and expire after 30 minutes.
+Settings sync through `chrome.storage.sync`. Moderation results remain in `chrome.storage.session` and expire after 30 minutes. Direct threats and encouragement of self-harm stay blocked even when a nearby topic is allowed.
 
-## API
+## Privacy by design
 
-The extension calls these local endpoints:
+- Social content is analyzed inside the extension or sent to the local API at `127.0.0.1`.
+- The default backend uses local Ollama models and does not call a hosted moderation provider.
+- Classification results are cached locally to avoid repeated work.
+- Reported examples are stored locally in SQLite and FAISS only after an explicit report.
+- There is no analytics or telemetry integration.
 
-| Method | Endpoint | Purpose |
-| --- | --- | --- |
-| `GET` | `/health` | Backend availability. |
-| `POST` | `/monitor/incoming` | Classify incoming content. |
-| `POST` | `/monitor/outgoing` | Classify a draft and return rewrite options. |
-| `POST` | `/report/content` | Add a reported example to SQLite and FAISS memory. |
-
-Moderation request:
-
-```json
-{
-  "text": "Message to classify",
-  "conversation_context": ["Optional earlier message"]
-}
-```
-
-Moderation response:
-
-```json
-{
-  "hate_score": 0.82,
-  "confidence": 0.9,
-  "category": "harassment",
-  "reason": "Short analytical explanation",
-  "suggested_alternative": "A calmer version",
-  "suggested_alternatives": ["Option one", "Option two", "Option three"]
-}
-```
-
-Incoming responses omit rewrite generation to reduce latency. Outgoing responses generate up to three alternatives when the score warrants intervention.
+Any future hosted model integration would change this privacy boundary and must be disclosed in both the product and its documentation.
 
 ## Development
 
-Run the JavaScript queue and fallback tests:
-
 ```bash
-npm test
-```
-
-Check every extension script for syntax errors:
-
-```bash
-npm run check:js
-```
-
-Run the backend cache tests:
-
-```bash
+npm test          # JavaScript queue, DOM, fallback, and send-intent tests
+npm run check:js  # Syntax-check every extension script
 npm run test:python
+npm run check     # Run all available checks
 ```
 
-Run all available checks:
-
-```bash
-npm run check
-```
-
-### Project structure
+<details>
+<summary><strong>Project structure</strong></summary>
 
 ```text
 chromium-maiden/
@@ -256,50 +229,56 @@ chromium-maiden/
 │   ├── models/                API request and response schemas
 │   ├── rag/                   Embeddings and adaptive vector memory
 │   └── routes/                Incoming, outgoing, and reporting endpoints
+├── docs/media/                README screenshots, video posters, and upload guide
 ├── extension/
 │   ├── mascots/default_maid/  Maiden states used by the interface
 │   ├── utils/                 DOM discovery, API bridge, queue, and cache
 │   ├── background.js          Moderation service worker
 │   ├── contentScript.js       Incoming and outgoing page behavior
 │   ├── content.css            Isolated page interventions
-│   ├── manual-test.*          Safe local lab for intervention testing
+│   ├── boundaries.*           Personal tolerance preferences
 │   └── popup.*                Toolbar controls and session status
 ├── tests/                     JavaScript and Python regression tests
 ├── DESIGN.md                  Visual system and component rules
 └── PRODUCT.md                 Product purpose and experience principles
 ```
 
-## Privacy
+</details>
 
-- Social content is analyzed inside the extension or sent to the local API at `127.0.0.1`.
-- The default backend uses local Ollama models. It does not call a hosted moderation provider.
-- Classification results are cached locally to avoid repeated work.
-- Reported examples are stored locally in SQLite and FAISS only when the reporting endpoint is explicitly used.
-- The project contains no analytics or telemetry integration.
+<details>
+<summary><strong>Local API</strong></summary>
 
-Review any future model-provider integration carefully. Sending message content to a hosted API would change this privacy boundary and should be disclosed in both the UI and documentation.
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/health` | Check backend availability. |
+| `POST` | `/monitor/incoming` | Classify incoming content. |
+| `POST` | `/monitor/outgoing` | Classify a draft and return rewrite options. |
+| `POST` | `/report/content` | Add a reported example to SQLite and FAISS memory. |
+
+Incoming responses skip rewrite generation to reduce latency. Outgoing responses generate up to three alternatives when the score warrants intervention.
+
+</details>
 
 ## Known limitations
 
-- Detection is probabilistic and context-sensitive. False positives and false negatives are unavoidable.
-- Incoming content briefly uses a soft pending blur, so a slow first model request can make safe text wait before becoming clear.
+- Detection is probabilistic and context-sensitive; false positives and false negatives are unavoidable.
+- A slow first model request can keep safe incoming text softly blurred for longer than usual.
 - The first Ollama request may be slower while a model loads into memory.
-- The fast fallback covers only a conservative set of explicit English phrases.
-- Social-site markup changes can break individual selectors.
-- A keyboard send that outruns draft classification requires the user to send once more after a safe result.
+- The fast fallback covers a conservative set of explicit English phrases.
+- Changes to social-site markup can break individual selectors.
+- Some sites may reject synthetic send actions after changing their composer implementation.
 - Session metrics reset when the extension service worker restarts.
 
 ## Roadmap
 
-- Add fixture-based DOM tests for each supported site.
-- Add language-aware fallback models and multilingual evaluation sets.
-- Batch nearby incoming messages in one backend request.
-- Add a false-positive reporting control to the incoming shield.
-- Measure time-to-shield, cache hit rate, and selector coverage without collecting message content.
-- Package repeatable Chrome Web Store release checks and a privacy policy.
+- Fixture-based DOM coverage for every supported site
+- Language-aware fallback models and multilingual evaluation sets
+- Batched classification for nearby incoming messages
+- Time-to-shield, cache-hit, and selector-coverage measurements without collecting message content
+- Repeatable Chrome Web Store release checks and a privacy policy
 
 ## Contributing
 
-Keep changes focused and testable. If you update a site selector, include the page context it targets and a sanitized DOM fixture when possible. If you change moderation thresholds or prompts, document the evaluation examples used to justify the change.
+Keep changes focused and testable. Selector changes should include their target page context and, when possible, a sanitized DOM fixture. Moderation threshold or prompt changes should document the evaluation examples behind them.
 
-The design rules live in [`DESIGN.md`](DESIGN.md), and the product principles live in [`PRODUCT.md`](PRODUCT.md).
+See [`DESIGN.md`](DESIGN.md) for interface rules and [`PRODUCT.md`](PRODUCT.md) for product principles.
