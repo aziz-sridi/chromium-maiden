@@ -49,7 +49,7 @@ Chromium Maiden protects both sides of a conversation: it slows down harmful mes
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/media/popup-placeholder.svg" alt="Chromium Maiden extension controls" width="100%">
+      <img src="docs/media/chrome_extention_popup.png" alt="Chromium Maiden popup showing active protection, session activity, and moderation controls" width="100%">
       <br>
       <strong>Protection at a glance</strong><br>
       <sub>Session status, protection modes, sensitivity, and active sites.</sub>
@@ -63,7 +63,7 @@ Chromium Maiden protects both sides of a conversation: it slows down harmful mes
   </tr>
 </table>
 
-> The media above uses intentional placeholders. Drop in the two videos and replace the two screenshots using the checklist in [`docs/media`](docs/media/README.md).
+> The two videos and the configuration image still use intentional placeholders. Add them using the checklist in [`docs/media`](docs/media/README.md).
 
 ## What it does
 

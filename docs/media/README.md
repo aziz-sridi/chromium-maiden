@@ -23,7 +23,7 @@ Replace the placeholder references in the root README with:
 
 | Suggested file | Capture |
 | --- | --- |
-| `popup.png` | The toolbar popup with protection enabled, the local model connected, and a little session activity visible. |
+| `chrome_extention_popup.png` | Added: the toolbar popup with protection enabled and session activity visible. |
 | `configuration.png` | The **Your boundaries** page with a varied set of Block, Context, and Allow choices plus short, safe example descriptions. |
 
 Export screenshots at 2× scale when possible. Crop tightly, keep both images visually balanced, and avoid real account or message data.
