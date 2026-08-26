@@ -1,33 +1,18 @@
-# README media checklist
+# README media
 
-The root README is already wired for these assets. Keep the video filenames exactly as listed so no README edits are needed.
+The root README currently uses these assets:
 
-## Videos
-
-| File | Capture |
+| File | Purpose |
 | --- | --- |
-| `sending-a-message.mp4` | Type a harmful draft, press send, show the intervention, choose a rewrite, then send the revised message. |
-| `receiving-a-message.mp4` | Receive or scroll to a harmful message, show the shield, open its explanation, then reveal and re-shield it. |
+| `message-protection.gif` | Shows incoming shielding and outgoing send protection. |
+| `report-harmful.gif` | Shows the **Mark harmful content** self-report flow. |
+| `chrome_extention_popup.png` | Shows the toolbar popup, active protection, and session activity. |
+| `boundaries-page.png` | Shows topic-level and free-form personal boundaries. |
 
-Recommended capture settings:
+## Capture guidance
 
-- 16:9 aspect ratio at 1080p, or a tight crop around the browser interaction.
-- 15–30 seconds per clip.
-- Use sanitized demo accounts and fictional text; remove names, avatars, notifications, and bookmarks.
-- Start and end with a brief still frame so the clip feels deliberate.
-- Keep each file reasonably small for repository clones. If GitHub rejects it, drag the video into a GitHub issue or pull-request comment and replace the README link with the generated asset URL.
-
-## Screenshots
-
-Replace the placeholder references in the root README with:
-
-| Suggested file | Capture |
-| --- | --- |
-| `chrome_extention_popup.png` | Added: the toolbar popup with protection enabled and session activity visible. |
-| `configuration.png` | The **Your boundaries** page with a varied set of Block, Context, and Allow choices plus short, safe example descriptions. |
-
-Export screenshots at 2× scale when possible. Crop tightly, keep both images visually balanced, and avoid real account or message data.
-
-## Optional extra
-
-If the README needs a third still later, prioritize the outgoing rewrite panel. It communicates the product's main differentiator more clearly than another settings screen.
+- Keep GIFs tightly cropped and under 30 seconds.
+- Use sanitized demo accounts and fictional text.
+- Remove names, avatars, notifications, and bookmarks where possible.
+- Start and end with a brief still frame so the loop feels deliberate.
+- Export screenshots at 2× scale and crop them tightly.

@@ -23,47 +23,39 @@
 
 ## See it in action
 
-Chromium Maiden protects both sides of a conversation: it slows down harmful messages before they leave and shields harmful content before it lands.
+Chromium Maiden protects both sides of a conversation—and lets people teach it when the model misses the mark.
 
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <a href="docs/media/sending-a-message.mp4">
-        <img src="docs/media/outgoing-demo-placeholder.svg" alt="Demo of Chromium Maiden checking an outgoing message" width="100%">
-      </a>
-      <br>
-      <strong>Before you send</strong><br>
-      <sub>Checks a draft, explains the intervention, and offers calmer rewrites.</sub>
-    </td>
-    <td width="50%" align="center">
-      <a href="docs/media/receiving-a-message.mp4">
-        <img src="docs/media/incoming-demo-placeholder.svg" alt="Demo of Chromium Maiden shielding an incoming message" width="100%">
-      </a>
-      <br>
-      <strong>Before you see it</strong><br>
-      <sub>Shields harmful incoming content while preserving reveal and correction controls.</sub>
-    </td>
-  </tr>
-</table>
+### Messages, checked both ways
 
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <img src="docs/media/chrome_extention_popup.png" alt="Chromium Maiden popup showing active protection, session activity, and moderation controls" width="100%">
-      <br>
-      <strong>Protection at a glance</strong><br>
-      <sub>Session status, protection modes, sensitivity, and active sites.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="docs/media/configuration-placeholder.svg" alt="Chromium Maiden personal boundaries configuration" width="100%">
-      <br>
-      <strong>Your boundaries, your rules</strong><br>
-      <sub>Block, context-check, or allow topics—and describe the nuance in your own words.</sub>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="docs/media/message-protection.gif" alt="Chromium Maiden shielding an incoming message and checking an outgoing message before send" width="800">
+  <br>
+  <sub>Shields harmful incoming content and pauses harmful drafts before they are sent.</sub>
+</p>
 
-> The two videos and the configuration image still use intentional placeholders. Add them using the checklist in [`docs/media`](docs/media/README.md).
+### Mark what the model missed
+
+<p align="center">
+  <img src="docs/media/report-harmful.gif" alt="Selecting missed harmful text and reporting it with Chromium Maiden's Mark harmful content action" width="800">
+  <br>
+  <sub>Select exact text, mark it as harmful, and help shield similar content next time.</sub>
+</p>
+
+### Protection at a glance
+
+<p align="center">
+  <img src="docs/media/chrome_extention_popup.png" alt="Chromium Maiden popup showing active protection, session activity, and moderation controls" width="400">
+  <br>
+  <sub>Session status, protection modes, sensitivity, and active sites.</sub>
+</p>
+
+### Your boundaries, your rules
+
+<p align="center">
+  <img src="docs/media/boundaries-page.png" alt="Chromium Maiden personal boundaries page with Block, Context, and Allow controls" width="900">
+  <br>
+  <sub>Block, context-check, or allow topics—and describe the nuance in your own words.</sub>
+</p>
 
 ## What it does
 
@@ -282,3 +274,9 @@ Incoming responses skip rewrite generation to reduce latency. Outgoing responses
 Keep changes focused and testable. Selector changes should include their target page context and, when possible, a sanitized DOM fixture. Moderation threshold or prompt changes should document the evaluation examples behind them.
 
 See [`DESIGN.md`](DESIGN.md) for interface rules and [`PRODUCT.md`](PRODUCT.md) for product principles.
+
+<div align="center">
+  <img src="Giga_maid.png" width="360" alt="Gigamaid standing proudly with her arms crossed">
+   <br>
+  <img src="docs/media/thank-you.svg" width="760" alt="Thank you!">
+</div>

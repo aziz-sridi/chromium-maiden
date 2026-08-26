@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="180" viewBox="0 0 1200 180" role="img" aria-labelledby="title">
+  <title id="title">Thank you!</title>
+  <text
+    x="600"
+    y="126"
+    text-anchor="middle"
+    font-family="Segoe UI, Arial, sans-serif"
+    font-size="112"
+    font-weight="800"
+    letter-spacing="8"
+    fill="#6f2c7d"
+  >THANK YOU!</text>
+</svg>
